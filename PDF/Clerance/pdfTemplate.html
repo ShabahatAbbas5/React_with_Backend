@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clearance Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .header, .footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+    }
+    .footer {
+      border-top: 1px solid #ddd;
+      border-bottom: none;
+    }
+    .content {
+      padding: 20px;
+    }
+    .content h2 {
+      text-align: center;
+    }
+    .content .row {
+      margin-bottom: 10px;
+    }
+    .content .row label {
+      display: inline-block;
+      width: 200px;
+      font-weight: bold;
+    }
+    .content .row div {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Clearance Form</h1>
+      <p>Invoice #: {{invoiceNumber}}</p>
+    </div>
+    <div class="content">
+      <h2>Form Details</h2>
+      <div class="row">
+        <label>Date:</label>
+        <div>{{date}}</div>
+      </div>
+      <div class="row">
+        <label>Time:</label>
+        <div>{{time}}</div>
+      </div>
+      <div class="row">
+        <label>Lot #:</label>
+        <div>{{lotNumber}}</div>
+      </div>
+      <div class="row">
+        <label>Permit #:</label>
+        <div>{{permitNumber}}</div>
+      </div>
+      <div class="row">
+        <label>Full Name:</label>
+        <div>{{fullName}}</div>
+      </div>
+      <div class="row">
+        <label>Address:</label>
+        <div>{{address}}</div>
+      </div>
+      <div class="row">
+        <label>General Contractor:</label>
+        <div>{{generalContractor}}</div>
+      </div>
+      <div class="row">
+        <label>Fire Protection Officer:</label>
+        <div>{{fireProtectionOfficer}}</div>
+      </div>
+      <div class="row">
+        <label>Reason For Inspection:</label>
+        <div>{{reasonForInspection}}</div>
+      </div>
+      <div class="row">
+        <label>Stage:</label>
+        <div>{{stage}}</div>
+      </div>
+      <div class="row">
+        <label>Building Type:</label>
+        <div>{{buildingType}}</div>
+      </div>
+      <div class="row">
+        <label>Area Covered:</label>
+        <div>{{areaCovered}} sq ft</div>
+      </div>
+      <div class="row">
+        <label>Inspection Type:</label>
+        <div>{{inspectionType}}</div>
+      </div>
+      <div class="row">
+        <label>Result of Inspection:</label>
+        <div>{{resultOfInspection}}</div>
+      </div>
+      <div class="row">
+        <label>Work Must Be Completed In:</label>
+        <div>{{workMustBeCompletedIn}}</div>
+      </div>
+      <div class="row">
+        <label>Type of Clearance:</label>
+        <div>{{typeOfClearance}}</div>
+      </div>
+      <div class="row">
+        <label>Temporary Clearance:</label>
+        <div>{{temporaryClearance}} days</div>
+      </div>
+      <div class="row">
+        <label>Comments:</label>
+        <div>{{comments}}</div>
+      </div>
+      <div class="row">
+        <label>Inspector:</label>
+        <div>{{inspector}}</div>
+      </div>
+      <div class="row">
+        <label>Cost:</label>
+        <div>${{cost}}</div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Thank you for your business!</p>
+    </div>
+  </div>
+</body>
+</html>

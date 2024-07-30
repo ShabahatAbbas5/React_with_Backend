@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propane Permit Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .header, .footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border-bottom: 1px solid #ddd;
+    }
+    .footer {
+      border-top: 1px solid #ddd;
+      border-bottom: none;
+    }
+    .content {
+      padding: 20px;
+    }
+    .content h2 {
+      text-align: center;
+    }
+    .content .row {
+      margin-bottom: 10px;
+    }
+    .content .row label {
+      display: inline-block;
+      width: 200px;
+      font-weight: bold;
+    }
+    .content .row div {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Propane Permit Form</h1>
+      <p>Invoice #: {{invoiceNumber}}</p>
+    </div>
+    <div class="content">
+      <h2>Form Details</h2>
+      <div class="row">
+        <label>Applicant Name:</label>
+        <div>{{applicantName}}</div>
+      </div>
+      <div class="row">
+        <label>Applicant Email:</label>
+        <div>{{applicantEmail}}</div>
+      </div>
+      <div class="row">
+        <label>Application Date:</label>
+        <div>{{applicationDate}}</div>
+      </div>
+      <div class="row">
+        <label>Service Address:</label>
+        <div>{{serviceAddress}}</div>
+      </div>
+      <div class="row">
+        <label>Mailing Address:</label>
+        <div>{{mailingAddress}}</div>
+      </div>
+      <div class="row">
+        <label>Telephone Number:</label>
+        <div>{{telephoneNumber}}</div>
+      </div>
+      <div class="row">
+        <label>Fax Number:</label>
+        <div>{{faxNumber}}</div>
+      </div>
+      <div class="row">
+        <label>Supplier:</label>
+        <div>{{propaneSupplier}}</div>
+      </div>
+      <div class="row">
+        <label>Supplier Phone Number:</label>
+        <div>{{propaneSupplierPhoneNumber}}</div>
+      </div>
+      <div class="row">
+        <label>Tank Size:</label>
+        <div>{{tankSize}}</div>
+      </div>
+      <div class="row">
+        <label>Tank Location:</label>
+        <div>{{tankLocation}}</div>
+      </div>
+      <div class="row">
+        <label>Plot Plan:</label>
+        <div><a href='#' target="_blank">{{plotPlanPath}}</a></div>
+      </div>
+
+      <div class="row">
+        <label>Cost:</label>
+        <div>${{cost}}</div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Thank you for your business!</p>
+    </div>
+  </div>
+</body>
+</html>
