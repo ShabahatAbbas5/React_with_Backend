@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+// const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -15,10 +15,10 @@ const s3Client = new S3Client({
 async function createPDF(formData, invoiceNumber, filePath) {
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    // browser = await puppeteer.launch({
+    //   headless: true,
+    //   args: ['--no-sandbox', '--disable-setuid-sandbox']
+    // });
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000); // Set timeout to 60 seconds
 
@@ -64,9 +64,9 @@ async function createPDF(formData, invoiceNumber, filePath) {
   } catch (error) {
     console.error('Error:', error);
   } finally {
-    if (browser) {
-      await browser.close();
-    }
+    // if (browser) {
+    //   await browser.close();
+    // }
     // Optionally delete the local file after upload
     // fs.unlinkSync(filePath);
   }
