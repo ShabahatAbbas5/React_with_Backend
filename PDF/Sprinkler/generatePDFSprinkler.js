@@ -19,8 +19,8 @@ async function createPDF(formData, invoiceNumber, filePath) {
     //   headless: true,
     //   args: ['--no-sandbox', '--disable-setuid-sandbox']
     // });
-    const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(60000); // Set timeout to 60 seconds
+    // const page = await browser.newPage();
+    // await page.setDefaultNavigationTimeout(60000); // Set timeout to 60 seconds
 
     // Convert amount to a number and format it
     const amount = Number(formData.cost) || 0;
