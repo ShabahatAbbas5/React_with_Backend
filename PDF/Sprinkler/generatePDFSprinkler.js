@@ -1,7 +1,8 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { execSync } = require('child_process');
 
 // Configure AWS SDK with environment variables
 const s3Client = new S3Client({
@@ -15,8 +16,12 @@ const s3Client = new S3Client({
 async function createPDF(formData, invoiceNumber, filePath) {
   let browser;
   try {
+    // Ensure the browser is installed
+    execSync('npx puppeteer-install', { stdio: 'inherit' });
+
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: puppeteer.executablePath(), // Ensure Puppeteer uses the installed executable
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
