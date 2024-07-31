@@ -1,26 +1,28 @@
-// sendEmail.js
 const nodemailer = require('nodemailer');
-const path = require('path');
-const fs = require('fs');
+const axios = require('axios');
 
-async function sendEmail(to, pdfPath,formtitle) {
+async function sendEmail(to, pdfUrl, formtitle) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
     }
   });
+
+  // Fetch the PDF from S3
+  const response = await axios.get(pdfUrl, { responseType: 'arraybuffer' });
 
   const mailOptions = {
     from: process.env.GMAIL_USER,
     to,
-    subject: formtitle+' Form Submission',
-    text: 'Please find the attached PDF of your '+formtitle+' form submission.',
+    subject: `${formtitle} Form Submission`,
+    text: `Please find the attached PDF of your ${formtitle} form submission.`,
     attachments: [
       {
-        filename: formtitle+' Form.pdf',
-        path: pdfPath
+        filename: `${formtitle} Form.pdf`,
+        content: response.data,
+        encoding: 'base64'
       }
     ]
   };
