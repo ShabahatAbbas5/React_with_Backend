@@ -24,35 +24,35 @@ async function sendEmail(to, pdfUrl, formtitle) {
 
   response.data.pipe(writer);
 
-  // return new Promise((resolve, reject) => {
-  //   writer.on('finish', () => {
-  //     const mailOptions = {
-  //       from: process.env.GMAIL_USER,
-  //       to,
-  //       subject: formtitle + ' Form Submission',
-  //       text: 'Please find the attached PDF of your ' + formtitle + ' form submission.',
-  //       attachments: [
-  //         {
-  //           filename: formtitle + ' Form.pdf',
-  //           path: tempFilePath
-  //         }
-  //       ]
-  //     };
+  return new Promise((resolve, reject) => {
+    writer.on('finish', () => {
+      const mailOptions = {
+        from: process.env.GMAIL_USER,
+        to,
+        subject: formtitle + ' Form Submission',
+        text: 'Please find the attached PDF of your ' + formtitle + ' form submission.',
+        attachments: [
+          {
+            filename: formtitle + ' Form.pdf',
+            path: tempFilePath
+          }
+        ]
+      };
 
-  //     transporter.sendMail(mailOptions, (error, info) => {
-  //       if (error) {
-  //         return reject(error);
-  //       }
-  //       console.log('Email sent:', info.response);
-  //       fs.unlink(tempFilePath, () => {}); // Clean up temp file
-  //       resolve();
-  //     });
-  //   });
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return reject(error);
+        }
+        console.log('Email sent:', info.response);
+        // fs.unlink(tempFilePath, () => {}); // Clean up temp file
+        resolve();
+      });
+    });
 
-  //   writer.on('error', (error) => {
-  //     reject(error);
-  //   });
-  // });
+    // writer.on('error', (error) => {
+    //   reject(error);
+    // });
+  });
 }
 
 module.exports = sendEmail;
