@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+// Send Email
+const sendEmail = require("../../emailsend/sendemail");
 
 // Configure AWS SDK with environment variables
 const s3Client = new S3Client({
