@@ -30,21 +30,21 @@ async function sendEmail(to, pdfUrl, formtitle) {
       writer.on('error', reject);
     });
 
-    const mailOptions = {
-      from: process.env.GMAIL_USER,
-      to,
-      subject: formtitle + ' Form Submission',
-      text: 'Please find the attached PDF of your ' + formtitle + ' form submission.',
-      attachments: [
-        {
-          filename: formtitle + ' Form.pdf',
-          path: tempFilePath
-        }
-      ]
-    };
+    // const mailOptions = {
+    //   from: process.env.GMAIL_USER,
+    //   to,
+    //   subject: formtitle + ' Form Submission',
+    //   text: 'Please find the attached PDF of your ' + formtitle + ' form submission.',
+    //   attachments: [
+    //     {
+    //       filename: formtitle + ' Form.pdf',
+    //       path: tempFilePath
+    //     }
+    //   ]
+    // };
 
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully.');
+    // await transporter.sendMail(mailOptions);
+    // console.log('Email sent successfully.');
 
     fs.unlink(tempFilePath, (err) => {
       if (err) {
