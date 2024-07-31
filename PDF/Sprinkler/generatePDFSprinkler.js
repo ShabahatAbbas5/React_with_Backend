@@ -1,5 +1,4 @@
-const puppeteer = require('puppeteer-core');
-const { executablePath } = require('puppeteer');
+const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -18,7 +17,6 @@ async function createPDF(formData, invoiceNumber) {
   try {
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: executablePath(), // Use Puppeteer's bundled Chromium
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
@@ -26,6 +24,7 @@ async function createPDF(formData, invoiceNumber) {
 
     // Convert amount to a number and format it
     const amount = Number(formData.cost) || 0;
+
     // Load HTML template and replace placeholders
     let html = fs.readFileSync(path.join(__dirname, 'pdfTemplate.html'), 'utf8');
     html = html
@@ -56,8 +55,7 @@ async function createPDF(formData, invoiceNumber) {
     // Construct the URL
     const bucketName = process.env.S3_BUCKET_NAME;
     const region = process.env.AWS_REGION;
-    const objectKey = params.Key;
-    const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${objectKey}`;
+    const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${params.Key}`;
 
     console.log('PDF uploaded to S3 successfully.');
     console.log('File URL:', fileUrl);
