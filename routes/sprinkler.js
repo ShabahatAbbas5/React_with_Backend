@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 
     // Send email
     try {
-      const formtitle = "Sprinkler";
+      const formtitle = "Sprinkler " +invoiceNumber;
       await sendEmail(formData.applicantEmail, pdfUrl, formtitle);
       console.log('Send email');
     } catch (error) {
