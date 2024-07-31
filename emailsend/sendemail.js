@@ -15,7 +15,7 @@ async function sendEmail(to, pdfUrl, formtitle) {
 
   // Download PDF from S3
   const response = await axios({
-    url: 'https://ssfd-backed.s3.us-east-1.amazonaws.com/1722455878839.pdf',
+    url: pdfUrl,
     responseType: 'stream'
   });
 

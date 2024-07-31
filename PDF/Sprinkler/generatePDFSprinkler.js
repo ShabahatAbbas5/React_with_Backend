@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -17,6 +17,7 @@ async function createPDF(formData, invoiceNumber) {
   try {
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: '/usr/bin/google-chrome-stable', // Update with correct path if needed
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
