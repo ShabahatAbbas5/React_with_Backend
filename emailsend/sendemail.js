@@ -14,13 +14,13 @@ async function sendEmail(to, pdfUrl, formtitle) {
   });
 
   // Download PDF from S3
-  // const response = await axios({
-  //   url: pdfUrl,
-  //   responseType: 'stream'
-  // });
+  const response = await axios({
+    url: pdfUrl,
+    responseType: 'stream'
+  });
 
-  // const tempFilePath = path.join(os.tmpdir(), formtitle + ' Form.pdf');
-  // const writer = fs.createWriteStream(tempFilePath);
+  const tempFilePath = path.join(os.tmpdir(), formtitle + ' Form.pdf');
+  const writer = fs.createWriteStream(tempFilePath);
 
   // response.data.pipe(writer);
 
