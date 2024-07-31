@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -12,11 +12,15 @@ const s3Client = new S3Client({
   }
 });
 
-async function createPDF(formData, invoiceNumber, filePath) {
+// Path to Chromium executable
+const CHROMIUM_PATH = '/usr/local/chromium/chrome'; // Update this path based on your installation
+
+async function createPDF(formData, invoiceNumber) {
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: true,
+      executablePath: CHROMIUM_PATH, // Specify the path to Chromium executable
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
@@ -68,8 +72,6 @@ async function createPDF(formData, invoiceNumber, filePath) {
     if (browser) {
       await browser.close();
     }
-    // Optionally delete the local file after upload
-    // fs.unlinkSync(filePath);
   }
 }
 
