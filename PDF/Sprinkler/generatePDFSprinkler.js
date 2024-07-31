@@ -60,7 +60,17 @@ async function createPDF(formData, invoiceNumber, filePath) {
     console.log('PDF uploaded to S3 successfully.');
     console.log('File URL:', fileUrl);
 
+     // Send email
+     try {
+      const formtitle = "Sprinkler";
+      await sendEmail(formData.applicantEmail, pdfBuffer,formtitle);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).send("Error submitting form");
+    }
+
     return fileUrl;
+
 
   } catch (error) {
     console.error('Error:', error);

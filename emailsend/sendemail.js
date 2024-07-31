@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 
-async function sendEmail(to, pdfPath,formtitle) {
+async function sendEmail(to, pdfBuffer,formtitle) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -20,7 +20,8 @@ async function sendEmail(to, pdfPath,formtitle) {
     attachments: [
       {
         filename: formtitle+' Form.pdf',
-        path: pdfPath
+        content: pdfBuffer,
+        encoding: 'base64'
       }
     ]
   };
