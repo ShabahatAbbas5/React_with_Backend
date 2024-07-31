@@ -35,6 +35,14 @@ router.post("/", async (req, res) => {
     const pdfPath = invoiceNumber+'.pdf';
     await createPDF(formData, invoiceNumber, pdfPath);
 
+    // Send email
+    try {
+      const formtitle = "Sprinkler";
+      await sendEmail(formData.applicantEmail, pdfPath,formtitle);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).send("Error submitting form");
+    }
 
     res.send({
       clientSecret: paymentIntent.client_secret,
