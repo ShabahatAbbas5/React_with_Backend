@@ -12,8 +12,6 @@ const s3Client = new S3Client({
   }
 });
 
-
-
 async function createPDF(formData, invoiceNumber, filePath) {
   let browser;
   try {
@@ -37,35 +35,33 @@ async function createPDF(formData, invoiceNumber, filePath) {
       .replace('{{cost}}', amount.toFixed(2));
 
     await page.setContent(html, { waitUntil: 'networkidle0' });
-    await page.pdf({ format: 'A4' });
+    // Generate PDF as a Buffer
+    const pdfBuffer = await page.pdf({ format: 'A4' });
 
     console.log('PDF created successfully.');
 
     // Upload PDF to S3
-    // const fileContent = fs.readFileSync(filePath);
     const params = {
       Bucket: process.env.S3_BUCKET_NAME,
-      Key: path.basename(filePath),
-      Body: fileContent,
+      Key: `${invoiceNumber}.pdf`, // Use invoice number or a unique key for the file name
+      Body: pdfBuffer,
       ContentType: 'application/pdf'
     };
 
-    // const command = new PutObjectCommand(params);
-    // await s3Client.send(command);
-
-    await s3.putObject(params).promise();
-
-
+    const command = new PutObjectCommand(params);
+    await s3Client.send(command);
 
     // Construct the URL
     const bucketName = process.env.S3_BUCKET_NAME;
-    const region = process.env.AWS_REGION; // Replace with your S3 region
+    const region = process.env.AWS_REGION;
     const objectKey = params.Key;
     const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${objectKey}`;
 
-    console.log(fileUrl);
-
     console.log('PDF uploaded to S3 successfully.');
+    console.log('File URL:', fileUrl);
+
+    return fileUrl;
+
   } catch (error) {
     console.error('Error:', error);
   } finally {

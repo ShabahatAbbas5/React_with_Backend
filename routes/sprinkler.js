@@ -29,16 +29,16 @@ router.post("/", async (req, res) => {
       amount,
       currency: "usd",
     });
-    // const invoiceNumber = Date.now();
+    const invoiceNumber = Date.now();
 
-    // // // Generate PDF
-    // const pdfPath = invoiceNumber+'.pdf';
-    // await createPDF(formData, invoiceNumber, pdfPath);
+    // // Generate PDF
+    const pdfPath = invoiceNumber+'.pdf';
+    const pdfUrl = await createPDF(formData, invoiceNumber, pdfPath);
 
     // Send email
     try {
       const formtitle = "Sprinkler";
-      await sendEmail(formData.applicantEmail, formData, formtitle);
+      await sendEmail(formData.applicantEmail, pdfUrl,formtitle);
     } catch (error) {
       console.error("Error sending email:", error);
       res.status(500).send("Error submitting form");

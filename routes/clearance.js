@@ -3,7 +3,7 @@ const router = express.Router();
 const Stripe = require("stripe");
 
 // Generate PDF
-// const createPDF = require("../PDF/Clearance/generatePDFClearance");
+const createPDF = require("../PDF/Clerance/generatePDFClearance");
 const path = require("path");
 
 // Send Email
@@ -28,19 +28,19 @@ router.post("/", async (req, res) => {
       amount,
       currency: "usd",
     });
-    // const invoiceNumber = Date.now();
+    const invoiceNumber = Date.now();
 
-    // // Generate PDF
-    // const pdfPath = path.join(
-    //   __dirname,
-    //   "../invoices/" + invoiceNumber + ".pdf"
-    // );
+    // Generate PDF
+    const pdfPath = path.join(
+      __dirname,
+      "../invoices/" + invoiceNumber + ".pdf"
+    );
     // await createPDF(formData, invoiceNumber, pdfPath);
 
     // Send email
     try {
       const formtitle = "Clearance";
-      await sendEmail(formData.email, formData, formtitle);
+      await sendEmail(formData.email, pdfPath, formtitle);
     } catch (error) {
       console.error("Error sending email:", error);
       res.status(500).send("Error submitting form");
