@@ -33,12 +33,12 @@ router.post("/", async (req, res) => {
 
     // // Generate PDF
     const pdfPath = invoiceNumber+'.pdf';
-    await createPDF(formData, invoiceNumber, pdfPath);
+    const pdffile = await createPDF(formData, invoiceNumber, pdfPath);
 
     // Send email
     try {
       const formtitle = "Sprinkler";
-      await sendEmail(formData.applicantEmail, pdfPath,formtitle);
+      await sendEmail(formData.applicantEmail, pdffile,formtitle);
     } catch (error) {
       console.error("Error sending email:", error);
       res.status(500).send("Error submitting form");
