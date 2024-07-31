@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Propane Permit Form</title>
+  <title>Clearance Form</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -50,60 +50,87 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Propane Permit Form</h1>
+      <h1>Clearance Form</h1>
       <p>Invoice #: {{invoiceNumber}}</p>
     </div>
     <div class="content">
       <h2>Form Details</h2>
       <div class="row">
-        <label>Applicant Name:</label>
-        <div>{{applicantName}}</div>
+        <label>Date:</label>
+        <div>{{date}}</div>
       </div>
       <div class="row">
-        <label>Applicant Email:</label>
-        <div>{{applicantEmail}}</div>
+        <label>Time:</label>
+        <div>{{time}}</div>
       </div>
       <div class="row">
-        <label>Application Date:</label>
-        <div>{{applicationDate}}</div>
+        <label>Lot #:</label>
+        <div>{{lotNumber}}</div>
       </div>
       <div class="row">
-        <label>Service Address:</label>
-        <div>{{serviceAddress}}</div>
+        <label>Permit #:</label>
+        <div>{{permitNumber}}</div>
       </div>
       <div class="row">
-        <label>Mailing Address:</label>
-        <div>{{mailingAddress}}</div>
+        <label>Full Name:</label>
+        <div>{{fullName}}</div>
       </div>
       <div class="row">
-        <label>Telephone Number:</label>
-        <div>{{telephoneNumber}}</div>
+        <label>Address:</label>
+        <div>{{address}}</div>
       </div>
       <div class="row">
-        <label>Fax Number:</label>
-        <div>{{faxNumber}}</div>
+        <label>General Contractor:</label>
+        <div>{{generalContractor}}</div>
       </div>
       <div class="row">
-        <label>Supplier:</label>
-        <div>{{propaneSupplier}}</div>
+        <label>Fire Protection Officer:</label>
+        <div>{{fireProtectionOfficer}}</div>
       </div>
       <div class="row">
-        <label>Supplier Phone Number:</label>
-        <div>{{propaneSupplierPhoneNumber}}</div>
+        <label>Reason For Inspection:</label>
+        <div>{{reasonForInspection}}</div>
       </div>
       <div class="row">
-        <label>Tank Size:</label>
-        <div>{{tankSize}}</div>
+        <label>Stage:</label>
+        <div>{{stage}}</div>
       </div>
       <div class="row">
-        <label>Tank Location:</label>
-        <div>{{tankLocation}}</div>
+        <label>Building Type:</label>
+        <div>{{buildingType}}</div>
       </div>
       <div class="row">
-        <label>Plot Plan:</label>
-        <div><a href='#' target="_blank">{{plotPlanUrl}}</a></div>
+        <label>Area Covered:</label>
+        <div>{{areaCovered}} sq ft</div>
       </div>
-
+      <div class="row">
+        <label>Inspection Type:</label>
+        <div>{{inspectionType}}</div>
+      </div>
+      <div class="row">
+        <label>Result of Inspection:</label>
+        <div>{{resultOfInspection}}</div>
+      </div>
+      <div class="row">
+        <label>Work Must Be Completed In:</label>
+        <div>{{workMustBeCompletedIn}}</div>
+      </div>
+      <div class="row">
+        <label>Type of Clearance:</label>
+        <div>{{typeOfClearance}}</div>
+      </div>
+      <div class="row">
+        <label>Temporary Clearance:</label>
+        <div>{{temporaryClearance}} days</div>
+      </div>
+      <div class="row">
+        <label>Comments:</label>
+        <div>{{comments}}</div>
+      </div>
+      <div class="row">
+        <label>Inspector:</label>
+        <div>{{inspector}}</div>
+      </div>
       <div class="row">
         <label>Cost:</label>
         <div>${{cost}}</div>

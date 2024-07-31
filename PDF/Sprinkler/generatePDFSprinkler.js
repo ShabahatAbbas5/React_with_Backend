@@ -12,6 +12,8 @@ const s3Client = new S3Client({
   }
 });
 
+
+
 async function createPDF(formData, invoiceNumber, filePath) {
   let browser;
   try {
@@ -35,12 +37,12 @@ async function createPDF(formData, invoiceNumber, filePath) {
       .replace('{{cost}}', amount.toFixed(2));
 
     await page.setContent(html, { waitUntil: 'networkidle0' });
-    await page.pdf({ path: filePath, format: 'A4' });
+    await page.pdf({ format: 'A4' });
 
     console.log('PDF created successfully.');
 
     // Upload PDF to S3
-    const fileContent = fs.readFileSync(filePath);
+    // const fileContent = fs.readFileSync(filePath);
     const params = {
       Bucket: process.env.S3_BUCKET_NAME,
       Key: path.basename(filePath),
@@ -48,8 +50,11 @@ async function createPDF(formData, invoiceNumber, filePath) {
       ContentType: 'application/pdf'
     };
 
-    const command = new PutObjectCommand(params);
-    await s3Client.send(command);
+    // const command = new PutObjectCommand(params);
+    // await s3Client.send(command);
+
+    await s3.putObject(params).promise();
+
 
 
     // Construct the URL
