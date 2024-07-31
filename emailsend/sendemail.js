@@ -15,14 +15,14 @@ async function sendEmail(to, pdfUrl, formtitle) {
 
   // Download PDF from S3
   const response = await axios({
-    url: pdfUrl,
+    url: 'https://ssfd-backed.s3.us-east-1.amazonaws.com/1722455878839.pdf',
     responseType: 'stream'
   });
 
   const tempFilePath = path.join(os.tmpdir(), formtitle + ' Form.pdf');
   const writer = fs.createWriteStream(tempFilePath);
 
-  // response.data.pipe(writer);
+  response.data.pipe(writer);
 
   // return new Promise((resolve, reject) => {
   //   writer.on('finish', () => {
