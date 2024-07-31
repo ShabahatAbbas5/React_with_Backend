@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer-core');
+const { executablePath } = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -12,19 +13,16 @@ const s3Client = new S3Client({
   }
 });
 
-// Path to Chromium executable
-const CHROMIUM_PATH = '/usr/local/chromium/chrome'; // Update this path based on your installation
-
 async function createPDF(formData, invoiceNumber) {
   let browser;
   try {
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: CHROMIUM_PATH, // Specify the path to Chromium executable
+      executablePath: executablePath(), // Use Puppeteer's bundled Chromium
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(60000); // Set timeout to 60 seconds
+    await page.setDefaultNavigationTimeout(60000);
 
     // Convert amount to a number and format it
     const amount = Number(formData.cost) || 0;
@@ -47,7 +45,7 @@ async function createPDF(formData, invoiceNumber) {
     // Upload PDF to S3
     const params = {
       Bucket: process.env.S3_BUCKET_NAME,
-      Key: `${invoiceNumber}.pdf`, // Use invoice number or a unique key for the file name
+      Key: `${invoiceNumber}.pdf`,
       Body: pdfBuffer,
       ContentType: 'application/pdf'
     };
