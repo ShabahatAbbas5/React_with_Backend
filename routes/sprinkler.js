@@ -31,15 +31,14 @@ router.post("/", async (req, res) => {
     });
     const invoiceNumber = Date.now();
 
-    // Generate PDF
-    const pdfPath = invoiceNumber + ".pdf";
-    const pdfUrl = await createPDF(formData, invoiceNumber, pdfPath);
+    // // Generate PDF
+    const pdfPath = invoiceNumber+'.pdf';
+    await createPDF(formData, invoiceNumber, pdfPath);
 
     // Send email
     try {
-      const formtitle = "Sprinkler " +invoiceNumber;
-      await sendEmail(formData.applicantEmail, pdfUrl, formtitle);
-      console.log('Send email');
+      const formtitle = "Sprinkler";
+      await sendEmail(formData.applicantEmail, pdfPath,formtitle);
     } catch (error) {
       console.error("Error sending email:", error);
       res.status(500).send("Error submitting form");
@@ -52,4 +51,5 @@ router.post("/", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+
 module.exports = router;
