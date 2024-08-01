@@ -1,18 +1,40 @@
-FROM node:18
+# Use an official Node runtime as a parent image
+FROM node:18-buster
+
+# Install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    wget \
+    gnupg \
+    libx11-dev \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libxss1 \
+    libxtst6 \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libgbm-dev \
+    --no-install-recommends
 
 # Install Chromium
-RUN apt-get update && apt-get install -y wget gnupg
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get update && apt-get install -y google-chrome-stable
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    dpkg -i google-chrome-stable_current_amd64.deb && \
+    apt-get -f install -y && \
+    rm google-chrome-stable_current_amd64.deb
 
-# Install dependencies
+# Set up the working directory
 WORKDIR /app
+
+# Install app dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy application code
+# Copy app source code
 COPY . .
 
-# Run application
-CMD ["node", "index.js"]
+# Expose port and start the app
+EXPOSE 3000
+CMD ["npm", "start"]
