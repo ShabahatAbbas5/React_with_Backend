@@ -1,18 +1,24 @@
 const axios = require("axios");
 
-async function generatePDF(formData, invoiceNumber,formname) {
+async function generatePDF(formData, invoiceNumber, formname) {
   try {
-    const response = await axios.post(
+    // Construct the query parameters
+    const response = await axios.get(
       "https://testing.theleathersjackets.com/Sprinkler/generatePDFSprinkler.php",
       {
-        formData,
-        invoiceNumber,
-        formname
+        params: {
+          ...formData,
+          invoiceNumber,
+          formname
+        }
       }
     );
 
+    console.log('formData', formData);
+
     if (response.status === 200) {
       const { url } = response.data;
+      console.log('PDF URL:', url);
       return url;
     } else {
       throw new Error("Failed to generate PDF");
