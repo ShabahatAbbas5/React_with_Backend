@@ -1,12 +1,13 @@
 const axios = require("axios");
 
-async function generatePDF(formData, invoiceNumber) {
+async function generatePDF(formData, invoiceNumber,formname) {
   try {
     const response = await axios.get(
       "https://testing.theleathersjackets.com/Sprinkler/generatePDFSprinkler.php",
       {
         formData,
         invoiceNumber,
+        formname
       }
     );
 
