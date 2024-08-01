@@ -2,7 +2,7 @@ const axios = require("axios");
 
 async function generatePDF(formData, invoiceNumber,formname) {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       "https://testing.theleathersjackets.com/Sprinkler/generatePDFSprinkler.php",
       {
         formData,
