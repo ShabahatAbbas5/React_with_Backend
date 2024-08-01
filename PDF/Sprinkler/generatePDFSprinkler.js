@@ -1,5 +1,4 @@
-const puppeteer = require('puppeteer-core');
-const { executablePath } = require('puppeteer');
+const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
@@ -18,11 +17,9 @@ async function createPDF(formData, invoiceNumber) {
   try {
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: executablePath(), // Use Puppeteer's bundled Chromium
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      timeout: 60000 // Increase timeout for browser launch
+      timeout: 60000
     });
-
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000);
 
@@ -39,9 +36,6 @@ async function createPDF(formData, invoiceNumber) {
       .replace('{{cost}}', amount.toFixed(2));
 
     await page.setContent(html, { waitUntil: 'networkidle0' });
-
-    // Add additional logging to help diagnose the issue
-    console.log('Rendering PDF...');
 
     // Generate PDF as a Buffer
     const pdfBuffer = await page.pdf({ format: 'A4' });
